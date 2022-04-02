@@ -315,8 +315,11 @@ const Label = styled.label`
         #old-hour {
             width: 65%;
         }
+        input {
+            margin-top: 10px;
+        }
     }
-    @media (min-width: 1199px) {
+    @media (min-width: 1200px) {
         #old-gpa,
         #old-hour {
             width: 46%;

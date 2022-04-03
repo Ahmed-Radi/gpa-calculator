@@ -2,32 +2,40 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 function Form() {
-	const [OldGpa, setOldGpa] = useState(0);
-	const [oldHours, setOldHours] = useState(0);
-
-    const [firstHour, setFirstHour] = useState(0);
-	const [secondHour, setSecondHour] = useState(0);
-	const [threadHour, setThreadHour] = useState(0);
-	const [fourthHour, setFourthHour] = useState(0);
-	const [fifthHour, setFifthHour] = useState(0);
-	const [sixthHour, setSixthHour] = useState(0);
-	const [seventhHour, setSeventhHour] = useState(0);
-
-    const [firstPoint, setFirstPoint] = useState(0)
-    const [secondPoint, setSecondPoint] = useState(0)
-    const [threadPoint, setThreadPoint] = useState(0)
-    const [fourthPoint, setFourthPoint] = useState(0)
-    const [fifthPoint, setFifthPoint] = useState(0)
-    const [sixthPoint, setSixthPoint] = useState(0)
-    const [seventhPoint, setSeventhPoint] = useState(0)
-
+    const [inputs, setInputs] = useState({
+        oldGpa: 0,
+        oldHours: 0,
+        firstHour: 0,
+        secondHour: 0,
+        thirdHour: 0,
+        fourthHour: 0,
+        fifthHour: 0,
+        sixthHour: 0,
+        seventhHour: 0,
+        firstPoint: 0,
+        secondPoint: 0,
+        thirdPoint: 0,
+        fourthPoint: 0,
+        fifthPoint: 0,
+        sixthPoint: 0,
+        seventhPoint: 0
+    });
     const [GPA, setGPA] = useState(0)
 
+    const handleInputs = (event) => {
+        // destructuring the object
+        let { target } = event;
+        let { name, value } = target;
+        setInputs(prevState => ({
+            ...prevState,
+            [name] : +value
+        }))
+    }
     const calculate = () => {
-        const totalSubjectPoint = ((firstHour*firstPoint) + (secondHour*secondPoint) + (threadHour*threadPoint) + (fourthHour*fourthPoint) + (fifthHour*fifthPoint) + (sixthHour*sixthPoint) + (seventhHour*seventhPoint))
-        const totalNewHours = (firstHour+ secondHour + threadHour + fourthHour + fifthHour + sixthHour + seventhHour)
-        const oldResult = (OldGpa * oldHours)
-        const Result = ((oldResult + totalSubjectPoint) / (totalNewHours + oldHours))
+        const totalSubjectPoint = ((inputs.firstHour*inputs.firstPoint) + (inputs.secondHour*inputs.secondPoint) + (inputs.thirdHour*inputs.thirdPoint) + (inputs.fourthHour*inputs.fourthPoint) + (inputs.fifthHour*inputs.fifthPoint) + (inputs.sixthHour*inputs.sixthPoint) + (inputs.seventhHour*inputs.seventhPoint))
+        const totalNewHours = (inputs.firstHour + inputs.secondHour + inputs.thirdHour + inputs.fourthHour + inputs.fifthHour + inputs.sixthHour + inputs.seventhHour)
+        const oldResult = (inputs.oldGpa * inputs.oldHours)
+        const Result = ((oldResult + totalSubjectPoint) / (totalNewHours + inputs.oldHours))
         setGPA(Result)
     }
 	const onSubmit = e => {
@@ -46,28 +54,30 @@ function Form() {
 								<span>Old GPA:</span>
 								<input
 									type='number'
+                                    name="oldGpa"
 									id='old-gpa'
                                     min="0"
                                     max="4"
                                     step="any"
 									placeholder='please enter old GPA'
-									onChange={e => setOldGpa(+e.target.value)}
+									onChange={e => handleInputs(e)}
 								/>
 							</Label>
 							<Label htmlFor='old-hour'>
 								<span>Old Hours:</span>
 								<input
 									type='number'
+                                    name="oldHours"
 									id='old-hour'
                                     min="0"
                                     max="144"
 									placeholder='please enter old Hours'
-									onChange={e => setOldHours(+e.target.value)}
+									onChange={e => handleInputs(e)}
 								/>
 							</Label>
 							<Label htmlFor='first-subject'>
 								<span>First Subject:</span>
-                                <select onChange={e=>setFirstPoint(+e.target.value)}>
+                                <select name="firstPoint" onChange={e => handleInputs(e)}>
                                     <option value="0">-</option>
                                     <option value="4">A+</option>
                                     <option value="3.75">A</option>
@@ -82,15 +92,16 @@ function Form() {
 								<input
 									type='number'
 									id='first-subject'
+                                    name="firstHour"
 									placeholder='Credits hours'
-                                    max="3"
                                     min="0"
-									onChange={e => setFirstHour(+e.target.value)}
+                                    max="3"
+									onChange={e => handleInputs(e)}
                                 />
 							</Label>
 							<Label htmlFor='second-subject'>
 								<span>second Subject:</span>
-                                <select onChange={e=>setSecondPoint(+e.target.value)}>
+                                <select name="secondPoint" onChange={e=> handleInputs(e)}>
                                     <option value="0">-</option>
                                     <option value="4">A+</option>
                                     <option value="3.75">A</option>
@@ -105,15 +116,16 @@ function Form() {
 								<input
 									type='number'
 									id='second-subject'
+                                    name="secondHour"
 									placeholder='Credits hours'
-                                    max="3"
                                     min="0"
-									onChange={e => setSecondHour(+e.target.value)}
+                                    max="3"
+									onChange={e => handleInputs(e)}
                                 />
 							</Label>
 							<Label htmlFor='thread-subject'>
-								<span>thread subject:</span>
-                                <select onChange={e=>setThreadPoint(+e.target.value)}>
+								<span>third subject:</span>
+                                <select name="thirdPoint" onChange={e=>handleInputs(e)}>
                                     <option value="0">-</option>
                                     <option value="4">A+</option>
                                     <option value="3.75">A</option>
@@ -128,15 +140,16 @@ function Form() {
 								<input
 									type='number'
 									id='thread-subject'
+                                    name="thirdHour"
 									placeholder='Credits hours'
-                                    max="3"
                                     min="0"
-									onChange={e => setThreadHour(+e.target.value)}
+                                    max="3"
+									onChange={e => handleInputs(e)}
                                 />
 							</Label>
 							<Label htmlFor='fourth-subject'>
 								<span>fourth subject:</span>
-                                <select onChange={e=>setFourthPoint(+e.target.value)}>
+                                <select name="fourthPoint" onChange={e=>handleInputs(e)}>
                                     <option value="0">-</option>
                                     <option value="4">A+</option>
                                     <option value="3.75">A</option>
@@ -151,15 +164,16 @@ function Form() {
 								<input
 									type='number'
 									id='fourth-subject'
+                                    name="fourthHour"
 									placeholder='Credits hours'
-                                    max="3"
                                     min="0"
-									onChange={e => setFourthHour(+e.target.value)}
+                                    max="3"
+									onChange={e => handleInputs(e)}
 								/>
 							</Label>
-							<Label htmlFor='fifth subject'>
+							<Label htmlFor='fifth-subject'>
 								<span>fifth subject:</span>
-                                <select onChange={e=> setFifthPoint(+e.target.value)}>
+                                <select name="fifthPoint" onChange={e=> handleInputs(e)}>
                                     <option value="0">-</option>
                                     <option value="4">A+</option>
                                     <option value="3.75">A</option>
@@ -173,16 +187,17 @@ function Form() {
                                 </select>
 								<input
 									type='number'
-									id='fifth subject'
+									id='fifth-subject'
+                                    name="fifthHour"
 									placeholder='Credits hours'
-                                    max="3"
                                     min="0"
-									onChange={e => setFifthHour(+e.target.value)}
+                                    max="3"
+									onChange={e => handleInputs(e)}
                                 />
 							</Label>
 							<Label htmlFor='sixth-subject'>
 								<span>sixth subject:</span>
-                                <select onChange={e=> setSixthPoint(+e.target.value)}>
+                                <select name="sixthPoint" onChange={e=> handleInputs(e)}>
                                     <option value="0">-</option>
                                     <option value="4">A+</option>
                                     <option value="3.75">A</option>
@@ -197,15 +212,16 @@ function Form() {
 								<input
 									type='number'
 									id='sixth-subject'
+                                    name="sixthHour"
 									placeholder='Credits hours'
-                                    max="3"
                                     min="0"
-									onChange={e => setSixthHour(+e.target.value)}
+                                    max="3"
+									onChange={e => handleInputs(e)}
                                 />
 							</Label>
 							<Label htmlFor='seventh-subject'>
 								<span>seventh subject:</span>
-                                <select onChange={e=> setSeventhPoint(+e.target.value)}>
+                                <select name="seventhPoint" onChange={e=> handleInputs(e)}>
                                     <option value="0">-</option>
                                     <option value="4">A+</option>
                                     <option value="3.75">A</option>
@@ -220,18 +236,19 @@ function Form() {
 								<input
 									type='number'
 									id='seventh-subject'
+                                    name="seventhHour"
 									placeholder='Credits Hours'
-                                    max="3"
                                     min="0"
-									onChange={e => setSeventhHour(+e.target.value)}
+                                    max="3"
+									onChange={e => handleInputs(e)}
                                 />
 							</Label>
 						</div>
-						<Button type='submit'>Submit</Button>
+                            <Button type='submit'>Submit</Button>
 					</form>
 				</div>
                 <GPAResult>
-                    <p>your GPA: {GPA > 0 ? <span>{GPA.toFixed(3)}</span> : GPA}</p>
+                    <p>your GPA: {GPA > 0 ? <span>{GPA.toFixed(3)}</span> : GPA ? GPA === undefined : 0 }</p>
                 </GPAResult>
 			</div>
 		</FormContent>
@@ -329,7 +346,7 @@ const Label = styled.label`
 const Button = styled.button`
 	width: 150px;
 	padding: 10px;
-	margin: 10px auto;
+	margin: 20px auto;
 	display: flex;
 	justify-content: center;
 	font-size: 18px;

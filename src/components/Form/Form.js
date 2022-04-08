@@ -35,8 +35,8 @@ function Form() {
         const totalSubjectPoint = ((inputs.firstHour*inputs.firstPoint) + (inputs.secondHour*inputs.secondPoint) + (inputs.thirdHour*inputs.thirdPoint) + (inputs.fourthHour*inputs.fourthPoint) + (inputs.fifthHour*inputs.fifthPoint) + (inputs.sixthHour*inputs.sixthPoint) + (inputs.seventhHour*inputs.seventhPoint))
         const totalNewHours = (inputs.firstHour + inputs.secondHour + inputs.thirdHour + inputs.fourthHour + inputs.fifthHour + inputs.sixthHour + inputs.seventhHour)
         const oldResult = (inputs.oldGpa * inputs.oldHours)
-        const Result = ((oldResult + totalSubjectPoint) / (totalNewHours + inputs.oldHours))
-        setGPA(Result)
+        const result = ((oldResult + totalSubjectPoint) / (totalNewHours + inputs.oldHours))
+        setGPA(result)
     }
 	const onSubmit = e => {
         e.preventDefault();
@@ -301,6 +301,12 @@ const Label = styled.label`
 				padding-left: 5px;
 				transition: all 0.5s ease-in-out;
 			}
+            &:in-range {
+                border: 1px solid #00b4d8;
+            }
+            &:out-of-range {
+                border: 1px solid red;
+            }
 		}
 		::placeholder {
 			text-transform: capitalize;

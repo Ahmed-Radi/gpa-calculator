@@ -295,11 +295,11 @@ const Label = styled.label`
     }
 	input {
         width: 221.6px;
+        transition: all 0.5s ease-in-out;
 		&:focus {
 			::placeholder {
 				color: #00b4d8;
 				padding-left: 5px;
-				transition: all 0.5s ease-in-out;
 			}
             &:in-range {
                 border: 1px solid #00b4d8;
@@ -308,6 +308,9 @@ const Label = styled.label`
                 border: 1px solid red;
             }
 		}
+        &:out-of-range {
+            border: 1px solid red;
+        }
 		::placeholder {
 			text-transform: capitalize;
 			transition: all 0.5s ease-in-out;
